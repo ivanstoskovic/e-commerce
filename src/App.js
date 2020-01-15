@@ -4,8 +4,8 @@ import HomePage from './C_homepage.jsx'
 
 function App() {
   return (
-    <div >
-      Hello!!
+    <div>
+      <HomePage />
     </div>
   );
 }
