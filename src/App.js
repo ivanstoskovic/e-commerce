@@ -5,20 +5,44 @@ import HomePage from './PAGES/homepage/C_homepage'
 import HatsPage from './PAGES/hatspage/C_hatspage';
 import SignUpInPage from './PAGES/sign_up_in/C_sign_up_in.jsx';
 import ShopPage from './PAGES/shop/C_shop';
-import Head from './COMPONENTS/header/C_header.jsx'
+import Head from './COMPONENTS/header/C_header.jsx';
+import { auth } from './firebase/firebase.utils';
 
-function App() {
-  return (
-    <div>
-      <Head/>
-      <Switch>
-        <Route exact path='/' component={HomePage}/>
-        <Route exact path='/shop' component={ShopPage}/>
-        <Route exact path='/signin' component={SignUpInPage}/>
-        <Route exact path='/hatspage' component={HatsPage}/>/**This is just test page */
-      </Switch>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  unsubscribeFromAuth = null;
+
+  componentDidMount(){
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => { 
+      this.setState({ currentUser: user});
+    });
+  }
+
+  // Da nebi doslo do curenja memorije jer je veza sa firebaze autentifikacijom otvorena
+  // Gasimo konekciju sa firebasom kada se komponenta  unistava
+  componentWillUnmount(){
+    this.unsubscribeFromAuth();
+  }
+
+  render(){
+    return (
+      <div>
+        <Head/>
+        <Switch>
+          <Route exact path='/' component={HomePage}/>
+          <Route exact path='/shop' component={ShopPage}/>
+          <Route exact path='/signin' component={SignUpInPage}/>
+          <Route exact path='/hatspage' component={HatsPage}/>/**This is just test page */
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
