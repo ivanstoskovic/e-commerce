@@ -18,6 +18,8 @@ class App extends React.Component {
 
   unsubscribeFromAuth = null;
 
+  //Uspostavlja se konekcija sa firebejzom i na svaku promenu u fajerbejzu (logovao se izlogoao se, registrovao se)
+  //se setuje stanje usera u stejtu. 
   componentDidMount(){
     this.unsubscribeFromAuth = auth.onAuthStateChanged(user => { 
       this.setState({ currentUser: user});
@@ -33,7 +35,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Head/>
+        <Head currentUser={this.state.currentUser}/>
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/shop' component={ShopPage}/>
