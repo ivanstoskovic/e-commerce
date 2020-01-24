@@ -24,6 +24,8 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => { 
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
+
+        // Subscrajbujemo se na logovanog juzera kako bi pratili da li ima promena na njemu u firebejzu i updejtovali tu promenu
         userRef.onSnapshot(snapShot => {
           this.setState({ 
             currentUser: {
@@ -33,6 +35,8 @@ class App extends React.Component {
           });
         });
       }
+
+      // Setuje se opet ovde na primer ako se izloguje. Izlogivanjem se setuje na null
       this.setState({ currentUser: userAuth});
     });
   }
