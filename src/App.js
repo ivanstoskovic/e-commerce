@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
 import HomePage from './PAGES/homepage/C_homepage'
 import HatsPage from './PAGES/hatspage/C_hatspage';
@@ -49,18 +49,28 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/shop' component={ShopPage}/>
-          <Route exact path='/signin' component={SignUpInPage}/>
-          <Route exact path='/hatspage' component={HatsPage}/>/**This is just test page */
+          <Route exact path='/signin' render={() => this.props.currentUser ?  (<Redirect to='/' />) : (<SignUpInPage />)}/> /**Ako si vec ulogovan redirektuje te na home page ako nisi dozvoljava ti da odes na SignUpInPage */
+          <Route exact path='/hatspage' component={HatsPage}/>
         </Switch>
       </div>
     );
   }
 }
 
+// mapiranje user reduceru
+const mapStateToProps = ({ user }) => ({ //({ user }) destructuring userReducer
+  currentUser: user.currentUser
+})
+
 //Posto u app komponenti nemamo potrebe da koristimo sacuvani state, vec samo da ga setujemo
-//
+// mapiranje user action
 const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+/*
+The connect() function connects a React component to a Redux store.
+It provides its connected component with the pieces of the data it needs from the store, and the functions it can use to dispatch actions to the store.
+It does not modify the component class passed to it; instead, it returns a new, connected component class that wraps the component you passed in.
+*/
+export default connect(mapStateToProps, mapDispatchToProps)(App);
