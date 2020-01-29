@@ -4,8 +4,10 @@
 
 import { combineReducers } from 'redux';
 import userReducer from '../REDUX/user/user-reducer.jsx';
+import cartReducer from '../REDUX/cart/cart-reducer.js';
 
 
 export default combineReducers({
-    user: userReducer
+    user: userReducer,
+    cart: cartReducer
 });
