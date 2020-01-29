@@ -19,8 +19,8 @@ const userReduser = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case UserActionTypes.SET_CURRENT_USER:// Tip akcije
             return{
-                ...state,// Tri tacke predstavljaju da hocemo da zadrzimo sve sto vec imamo u state objektu a menjamo samo ono sto nam treba
-                currentUser: action.payload // Ovde menjamo smo ono sto nam treba
+                ...state,// Tri tacke predstavljaju da hocemo da zadrzimo sve sto vec imamo ali u novo kreiranom state objektu a menjamo samo ono sto nam treba
+                currentUser: action.payload // Ovde menjamo smo ono sto nam treba u state objektu koji smo kreriali. Ako ne kreiramo novi objekat nece se renderovati komponenta.
             }
         default:
             return state;
