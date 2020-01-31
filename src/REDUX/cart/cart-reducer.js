@@ -1,4 +1,5 @@
 import CartActionTypes  from "./cart-types.js";
+import { addItemToCart } from './cart-utils.js'
 
 const INITIAL_STATE = {
     hidden: true,
@@ -15,7 +16,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         case CartActionTypes.ADD_ITEM:
             return {
                 ...state,
-                cartItems: [...state.cartItems, action.payload]// na kraju postojecec niza dodajemo novi element
+                cartItems: addItemToCart(state.cartItems, action.payload)
             }
         default:
             return state;
