@@ -3,7 +3,7 @@
 // za userReducer u redux state-u.
 
 import { combineReducers } from 'redux';
-import userReducer from '../REDUX/user/user-reducer.jsx';
+import userReducer from '../REDUX/user/user-reducer.js';
 import cartReducer from '../REDUX/cart/cart-reducer.js';
 
 

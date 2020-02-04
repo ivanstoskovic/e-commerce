@@ -9,6 +9,8 @@ import Head from './COMPONENTS/header/C_header.jsx';
 import { auth, createUserProfileDocument } from './FIREBASE/firebase.utils.js';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './REDUX/user/user-actions.js'
+import { createStructuredSelector } from 'reselect'; 
+import { selectCurrentUser } from './REDUX/user/user-selectors.js';
 
 class App extends React.Component {
  
@@ -58,8 +60,8 @@ class App extends React.Component {
 }
 
 // mapiranje user reduceru
-const mapStateToProps = ({ user }) => ({ //({ user }) destructuring userReducer
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({ 
+  currentUser: selectCurrentUser
 })
 
 //Posto u app komponenti nemamo potrebe da koristimo sacuvani state, vec samo da ga setujemo
