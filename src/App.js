@@ -4,7 +4,8 @@ import './App.css';
 import HomePage from './PAGES/homepage/C_homepage'
 import HatsPage from './PAGES/hatspage/C_hatspage';
 import SignUpInPage from './PAGES/sign_up_in/C_sign_up_in.jsx';
-import ShopPage from './PAGES/shop/C_shop';
+import ShopPage from './PAGES/shop/C_shop.jsx';
+import CheckoutPage from './PAGES/checkout/C_checkout.jsx';
 import Head from './COMPONENTS/header/C_header.jsx';
 import { auth, createUserProfileDocument } from './FIREBASE/firebase.utils.js';
 import { connect } from 'react-redux';
@@ -51,6 +52,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/shop' component={ShopPage}/>
+          <Route exact path='/checkout' component={CheckoutPage}/>
           <Route exact path='/signin' render={() => this.props.currentUser ?  (<Redirect to='/' />) : (<SignUpInPage />)}/> /**Ako si vec ulogovan redirektuje te na home page ako nisi dozvoljava ti da odes na SignUpInPage */
           <Route exact path='/hatspage' component={HatsPage}/>
         </Switch>
