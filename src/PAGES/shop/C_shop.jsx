@@ -1,24 +1,15 @@
 import React from 'react';
-import SHOP_DATA from './shop_data.js';
-import CollectionPreview from '../../COMPONENTS/collection-preview/C_collection_preview.jsx';
+import { Route } from 'react-router-dom';
+import CollectionOverview from '../../COMPONENTS/collection-overview/C_collection_overview.jsx';
+import CollectionPage from '../../PAGES/collection/C_collection.jsx';
 
-class ShopPage extends React.Component {
-    constructor(props){
-        super(props);
+//ShopPage je ugnezdjena u Route komponentu za rutovanje u App.js i automatski joj proledjuje tri objekta (match, locaton, history) nama treba match sada
 
-        this.state = {
-            collections: SHOP_DATA
-        }
-    }
-
-    render(){
-        const {collections} = this.state;
-        return (<div className='shop-page'>
-        {
-            collections.map(({id, ...otherCollectionProps}) =>(<CollectionPreview key={id} {...otherCollectionProps}></CollectionPreview>))    
-        }
-        </div>);
-    }
-}
+const ShopPage = ({ match }) => (
+    <div className='shop-page'>
+        <Route exact path={`${match.path}`} component={ CollectionOverview }/>
+        <Route path={`${match.path}/:collectionId`} component={ CollectionPage }/>    
+    </div>
+);
 
 export default ShopPage;
