@@ -51,7 +51,7 @@ class App extends React.Component {
         <Head />
         <Switch>
           <Route exact path='/' component={HomePage}/>
-          <Route exact path='/shop' component={ShopPage}/>
+          <Route path='/shop' component={ShopPage}/>
           <Route exact path='/checkout' component={CheckoutPage}/>
           <Route exact path='/signin' render={() => this.props.currentUser ?  (<Redirect to='/' />) : (<SignUpInPage />)}/> /**Ako si vec ulogovan redirektuje te na home page ako nisi dozvoljava ti da odes na SignUpInPage */
           <Route exact path='/hatspage' component={HatsPage}/>
@@ -67,7 +67,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 //Posto u app komponenti nemamo potrebe da koristimo sacuvani state, vec samo da ga setujemo
-// mapiranje user action
+
 const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))
 });
@@ -76,5 +76,6 @@ const mapDispatchToProps = dispatch => ({
 The connect() function connects a React component to a Redux store.
 It provides its connected component with the pieces of the data it needs from the store, and the functions it can use to dispatch actions to the store.
 It does not modify the component class passed to it; instead, it returns a new, connected component class that wraps the component you passed in.
+Prvi argument connect() funkcije sluzi da se iscitaju vrednosti iz state-a a drugi da se setuju vrednosti u stejtu. 
 */
 export default connect(mapStateToProps, mapDispatchToProps)(App);
