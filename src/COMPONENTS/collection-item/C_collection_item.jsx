@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { addItem } from '../../REDUX/cart/cart-action.js'
 import './C_collection_item.scss';
 
-const CollectionItem = ({item, addItem}) => 
+const CollectionItem = ({item, addItem, width}) => 
 {
     const { id, name, price, imageUrl } = item;
     return(
-    <div className='collection-item' id={id}>
+    <div className={`${width ? "" : "item-width" } collection-item`} id={id}>
         <div 
             className='image' 
             style={{
