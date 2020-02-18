@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './C_header.scss';
-import {Link} from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/header/crown.svg';
 import { auth } from '../../FIREBASE/firebase.utils.js';
 import { connect } from 'react-redux'; //(HOC) Higher order component nam omogucava da prosledimo dve komponente a vrati nam jednu ujedinjenu komponentu(export default connect(mapStateToProps)(Header);)
@@ -10,41 +8,42 @@ import CartDropdown from '../cart-dropdown/C_cart_dropdown.jsx';
 import { createStructuredSelector } from 'reselect'; // prosledjuje state u selectore da nebi rucno prosledjivali isti state u svaki selektor (sintatic sugar)
 import { selectCartHidden } from '../../REDUX/cart/cart-selectors.js';
 import { selectCurrentUser } from '../../REDUX/user/user-selectors.js';
+import { HeaderContainer,LogoContainer,OptionLink,OptionsContainer } from './C_header_style';
 
 
 
 const Header = ({currentUser, hidden}) => (
-    <div className='header'>
-        <Link className='logo-container' to="/">
+    <HeaderContainer>
+        <LogoContainer to="/">
             <Logo className='logo'/>
-        </Link>
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/shop'>
+            </OptionLink>
+            <OptionLink to='/shop'>
                 CONTACT
-            </Link>
+            </OptionLink>
             {
                 currentUser ? (
-                <div className='option' onClick={() => auth.signOut()}>
+                <OptionLink as='div' onClick={() => auth.signOut()}>
                     SIGN OUT
-                </div>
+                </OptionLink>
                 )
                 :
                 (
-                <Link className='option' to='/signin'>
+                <OptionLink to='/signin'>
                     SIGN IN
-                </Link>
+                </OptionLink>
                 )
             }
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {
             hidden ? null :
             <CartDropdown />
         }
-    </div>
+    </HeaderContainer>
 )
 
 const mapStateToProps = createStructuredSelector({
