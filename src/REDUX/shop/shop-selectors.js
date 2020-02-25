@@ -22,3 +22,11 @@ export const selectIsCollectionFetching = createSelector(
     [selectShop],
     shop => shop.isFetching
 );
+
+export const selectIsCollectionLoaded = createSelector(
+    [selectShop],
+    // Dva znaka uzvika su operatur u JavaScriptu koji ispituje 
+    //da li se vrednost objekta ili primitivnog tipa razlikuje od inicijalnog npr: 
+    //!!0 daje false  zatim !!null daje false zatim prazan string !!'' daje false !!{} prazan objekat daje true
+    shop => !!shop.collections // ispituje da li je kolekcija ucitana i vraca true ako jeste. Ako nije collection ce biti null i vraca false
+);

@@ -23,9 +23,16 @@ export const fetchCollectionsFailure = errorMessage => ({
     payload: errorMessage
 });
 
+//NISAM BAS SIGURAN 
 // funkcija koju prosledjujemo komponenti i zapocinjemo proces trazenja podataka
 // u trenutku poziva funkcije, redux ce je instancirati i redux-thunk nam omogucava da
 // menjamo stanje reducer-a i zatim nastavi  izvrsavanje funkcije 
+//Ako je redux-thuk midleware ukljucen, svaki put kada zelimo da otpremimo(dispatchujemo)
+//funkciju umesto objekta, midleware ce pozvati tu funkciju uz dispatch kao prvi 
+//argument
+// Thunk je midleware kroz koji detektuje samo akcije koje su funkcije a ne objekti, kada detektuje funkciju dodeljuje joj dispatch property
+// I pomaze nam da asihroni kod obradimo u sinhronom maniru. dispatch property dobija funkcionalnosti Thunk-a kojim mi 
+// pozivamo reducer-e i prosledjujemo im objekat kakav ocekuju
 export const fetchCollectionsStartAsync = () => {
     return dispatch => {
         const collectionRef = firestore.collection('collections'); // referenca na collection listu u firestor bazi podataka
